@@ -26,6 +26,9 @@ void loop() {
   value++;
   DUMP(value);
   BREAK();
+  
+  if (INTERVAL(1000))
+    TRACE();
 }
 ```
 
@@ -35,6 +38,7 @@ The program above would print:
 MyProgram.ino:7: void setup()
 MyProgram.ino:12: value = 1
 MyProgram.ino:13: BREAK! (press [enter] to continue)
+MyProgram.ino:16: void setup()
 MyProgram.ino:12: value = 2
 MyProgram.ino:13: BREAK! (press [enter] to continue)
 MyProgram.ino:12: value = 3
@@ -55,6 +59,7 @@ MyProgram.ino:13: BREAK! (press [enter] to continue)
     - line number
     - variable's name
     - variable's value
+* `INTERVAL(variable)` is a self contained timer that returns true each time the interval (in milliseconds) has elapsed.
 * `BREAK()` pauses the program until you send a line-break to the Serial
 * `TRACE()` and `DUMP(variable)` work at global scope, provided that you call `ARDUINOTRACE_INIT()` to initialize the Serial port.
 * Flushes the Serial port to make sure that each line is complete

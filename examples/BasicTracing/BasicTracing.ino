@@ -15,4 +15,8 @@ void loop() {
   value++;
   DUMP(value);
   BREAK();
+
+  // this will only print every 1000ms
+  if (INTERVAL(1000))
+    DUMP(VALUE);
 }

@@ -196,11 +196,25 @@ inline void pause(TSerial &serial) {
     ArduinoTrace::pause(ARDUINOTRACE_SERIAL);                 \
   } while (false)
 
+// Self contained interval timer that returns true once the interval has
+// elapsed.
+#define INTERVAL(ms)            \
+  ([]() -> bool {               \
+    static uint32_t _last = 0;  \
+    uint32_t _now = millis();   \
+    if (_now - _last >= (ms)) { \
+      _last = _now;             \
+      return true;              \
+    }                           \
+    return false;               \
+  }())
+
 #else  // ie ARDUINOTRACE_ENABLE == 0
 
 #define ARDUINOTRACE_INIT(bauds)
 #define TRACE()
 #define DUMP(variable)
 #define BREAK()
+#define INTERVAL(ms) false
 
 #endif
